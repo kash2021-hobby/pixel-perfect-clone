@@ -89,11 +89,7 @@ export function CityMap({
         <motion.g
           key={pin.name}
           initial={false}
-          animate={
-            reduce
-              ? undefined
-              : { offsetDistance: ["0%", "100%"] as unknown as string[] }
-          }
+          animate={{ offsetDistance: reduce ? "20%" : ["0%", "100%"] }}
           transition={{
             duration: 16 + i * 4,
             repeat: Infinity,
