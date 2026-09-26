@@ -1,24 +1,45 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Navbar } from "../components/infield/Navbar";
+import { Hero } from "../components/infield/Hero";
+import { BenefitStrip } from "../components/infield/BenefitStrip";
+import { Problem } from "../components/infield/Problem";
+import { Solution } from "../components/infield/Solution";
+import { FeaturesGrid } from "../components/infield/FeaturesGrid";
+import { Timeline } from "../components/infield/Timeline";
+import { ProofSection } from "../components/infield/ProofSection";
+import { Testimonial } from "../components/infield/Testimonial";
+import { Industries } from "../components/infield/Industries";
+import { GetStarted } from "../components/infield/GetStarted";
+import { FAQ } from "../components/infield/FAQ";
+import { Contact } from "../components/infield/Contact";
+import { Footer } from "../components/infield/Footer";
+import { FloatingElements } from "../components/infield/FloatingElements";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
+    <div className="min-h-screen bg-background">
+      <Navbar />
+      <main>
+        <Hero />
+        <BenefitStrip />
+        <Problem />
+        <Solution />
+        <FeaturesGrid />
+        <Timeline />
+        <ProofSection />
+        <Testimonial />
+        <Industries />
+        <GetStarted />
+        <FAQ />
+        <Contact />
+      </main>
+      <Footer />
+      <FloatingElements />
     </div>
   );
 }
+

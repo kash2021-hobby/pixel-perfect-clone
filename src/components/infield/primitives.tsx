@@ -1,5 +1,6 @@
 import { motion, useReducedMotion } from "motion/react";
 import type { ReactNode } from "react";
+import { ArrowRight } from "lucide-react";
 
 export function Reveal({
   children,
@@ -26,7 +27,7 @@ export function Reveal({
 
 export function Eyebrow({ children }: { children: ReactNode }) {
   return (
-    <span className="inline-flex items-center gap-2 rounded-full bg-brand-tint px-4 py-1.5 text-xs font-semibold tracking-wide text-brand sm:text-sm">
+    <span className="inline-flex items-center gap-2 rounded-full bg-brand-tint px-4 py-1.5 text-xs font-semibold tracking-wide text-secondary sm:text-sm">
       {children}
     </span>
   );
@@ -49,7 +50,7 @@ export function SectionHeader({
         className={
           dark
             ? "inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-xs font-semibold tracking-wide text-on-dark sm:text-sm"
-            : "inline-flex items-center gap-2 rounded-full bg-brand-tint px-4 py-1.5 text-xs font-semibold tracking-wide text-brand sm:text-sm"
+            : "inline-flex items-center gap-2 rounded-full bg-brand-tint px-4 py-1.5 text-xs font-semibold tracking-wide text-secondary sm:text-sm"
         }
       >
         {eyebrow}
@@ -81,17 +82,19 @@ export function PrimaryButton({
   type?: "button" | "submit";
   disabled?: boolean;
 }) {
-  const classes = `inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-brand px-6 text-sm font-semibold text-white shadow-card transition-colors hover:bg-brand-dark disabled:opacity-70 sm:text-base ${className}`;
+  const classes = `inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full bg-brand px-8 text-base font-semibold text-white shadow-card transition-all hover:bg-brand-dark hover:-translate-y-1 disabled:opacity-70 disabled:hover:translate-y-0 ${className}`;
   if (href) {
     return (
       <a href={href} className={classes}>
         {children}
+        <ArrowRight className="h-5 w-5" />
       </a>
     );
   }
   return (
     <button type={type ?? "button"} disabled={disabled} className={classes}>
       {children}
+      <ArrowRight className="h-5 w-5" />
     </button>
   );
 }
@@ -108,7 +111,7 @@ export function SecondaryButton({
   return (
     <a
       href={href}
-      className={`inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-brand bg-white px-6 text-sm font-semibold text-brand transition-colors hover:bg-brand-tint sm:text-base ${className}`}
+      className={`inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full border-2 border-brand bg-white px-8 text-base font-semibold text-secondary transition-all hover:bg-brand-soft hover:-translate-y-1 ${className}`}
     >
       {children}
     </a>

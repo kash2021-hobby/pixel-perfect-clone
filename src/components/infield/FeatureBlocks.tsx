@@ -32,7 +32,7 @@ function Block({
         <Reveal className={flip ? "lg:order-2" : ""}>
           <span
             className={`inline-flex h-9 items-center rounded-full px-4 font-display text-sm font-bold ${
-              dark ? "bg-white/10 text-white" : "bg-brand-tint text-brand"
+              dark ? "bg-white/10 text-white" : "bg-brand-tint text-secondary"
             }`}
           >
             {index}
@@ -58,7 +58,7 @@ function Block({
           <a
             href="#contact"
             className={`mt-6 inline-flex items-center gap-1.5 text-sm font-semibold ${
-              dark ? "text-white" : "text-brand"
+              dark ? "text-white" : "text-secondary"
             }`}
           >
             Book a Free Demo <ArrowRight className="h-4 w-4" />
@@ -175,13 +175,13 @@ function CheckInMockup() {
         <div className="mt-3 space-y-2">
           <div className="flex items-center gap-2 rounded-xl border border-brand-tint p-2">
             <span className="grid h-10 w-10 place-items-center rounded-lg bg-brand-tint">
-              <ImageIcon className="h-4 w-4 text-brand" />
+              <ImageIcon className="h-4 w-4 text-secondary" />
             </span>
             <span className="text-[11px] font-semibold text-navy">Business card.jpg</span>
           </div>
           <div className="flex items-center gap-2 rounded-xl border border-brand-tint p-2">
             <span className="grid h-10 w-10 place-items-center rounded-lg bg-brand-tint">
-              <FileText className="h-4 w-4 text-brand" />
+              <FileText className="h-4 w-4 text-secondary" />
             </span>
             <span className="text-[11px] font-semibold text-navy">Quotation.pdf</span>
           </div>
@@ -208,7 +208,7 @@ function RouteMockup() {
     <div className="rounded-[26px] border border-brand-tint bg-white p-3 shadow-card-lg">
       <div className="mb-2 flex items-center justify-between px-1">
         <span className="font-display text-sm font-bold text-navy">Planned route · Today</span>
-        <span className="rounded-full bg-brand-tint px-2 py-0.5 text-[10px] font-semibold text-brand">
+        <span className="rounded-full bg-brand-tint px-2 py-0.5 text-[10px] font-semibold text-secondary">
           Example
         </span>
       </div>
@@ -341,7 +341,7 @@ function TerritoryMockup() {
               <span className="rounded-full bg-brand px-2 py-1 text-[10px] font-semibold text-white">
                 Client meeting
               </span>
-              <span className="rounded-full border border-brand px-2 py-1 text-[10px] font-semibold text-brand">
+              <span className="rounded-full border border-brand px-2 py-1 text-[10px] font-semibold text-secondary">
                 Add reason
               </span>
             </div>
@@ -366,7 +366,7 @@ function DashboardMockup() {
     <div className="rounded-[26px] border border-brand-tint bg-white p-4 shadow-card-lg">
       <div className="flex items-center justify-between">
         <p className="font-display text-sm font-bold text-navy">Team performance · September</p>
-        <span className="rounded-full bg-brand-tint px-2 py-0.5 text-[10px] font-semibold text-brand">
+        <span className="rounded-full bg-brand-tint px-2 py-0.5 text-[10px] font-semibold text-secondary">
           Sample data
         </span>
       </div>
@@ -388,7 +388,7 @@ function DashboardMockup() {
               <tr key={name} className="border-t border-brand-tint">
                 <td className="py-2">
                   <span className="flex items-center gap-2">
-                    <span className="grid h-7 w-7 place-items-center rounded-full bg-brand-tint text-[10px] font-bold text-brand">
+                    <span className="grid h-7 w-7 place-items-center rounded-full bg-brand-tint text-[10px] font-bold text-secondary">
                       {name.slice(0, 1)}
                       {name.split(" ")[1]?.slice(0, 1)}
                     </span>
@@ -489,7 +489,7 @@ function PayoutMockup() {
             </span>
           ))}
         </div>
-        <span className="rounded-full bg-brand-tint px-2 py-0.5 text-[10px] font-semibold text-brand">
+        <span className="rounded-full bg-brand-tint px-2 py-0.5 text-[10px] font-semibold text-secondary">
           Sample data
         </span>
       </div>
@@ -559,7 +559,7 @@ export function FeatureBlocks() {
           <>
             See Your Whole Team on One Map —
             <br />
-            <span className="text-brand">Without Micromanaging.</span>
+            <span className="text-secondary">Without Micromanaging.</span>
           </>
         }
         sub="Every salesperson, every route, on a single live screen."
@@ -580,7 +580,7 @@ export function FeatureBlocks() {
           <>
             Every Client Visit —
             <br />
-            <span className="text-brand">
+            <span className="text-secondary">
               <span className="underline-green">GPS-Verified</span> &amp; Time-Stamped.
             </span>
           </>
@@ -602,7 +602,7 @@ export function FeatureBlocks() {
           <>
             The Best Route Every Day —
             <br />
-            <span className="text-brand">Less Petrol, More Clients.</span>
+            <span className="text-secondary">Less Petrol, More Clients.</span>
           </>
         }
         sub="Visit order, distance and timing planned before the day starts."
@@ -643,7 +643,7 @@ export function FeatureBlocks() {
           <>
             Judge Performance by Data —
             <br />
-            <span className="text-brand">Not by Feelings.</span>
+            <span className="text-secondary">Not by Feelings.</span>
           </>
         }
         sub="Visits, meetings, deals and revenue for every rep, updated daily."
@@ -664,7 +664,7 @@ export function FeatureBlocks() {
           <>
             Salary, Commission &amp; Travel Allowance —
             <br />
-            <span className="text-brand">Calculated Automatically.</span>
+            <span className="text-secondary">Calculated Automatically.</span>
           </>
         }
         sub="Payouts built from real visits, real deals and real distance."
@@ -685,7 +685,7 @@ export function FeatureBlocks() {
               </p>
               <a
                 href="#contact"
-                className="inline-flex min-h-12 shrink-0 items-center rounded-full bg-white px-6 font-semibold text-brand"
+                className="inline-flex min-h-12 shrink-0 items-center rounded-full bg-white px-6 font-semibold text-secondary"
               >
                 Book a Free Demo
               </a>

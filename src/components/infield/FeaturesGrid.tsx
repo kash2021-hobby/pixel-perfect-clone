@@ -1,211 +1,175 @@
-import {
-  ArrowRight,
-  BarChart3,
-  ChevronRight,
-  ClipboardCheck,
-  MapPin,
-  Route,
-  ShieldAlert,
-  Wallet,
-} from "lucide-react";
-import type { LucideIcon } from "lucide-react";
-import { Reveal, SectionHeader } from "./primitives";
-
-type Feature = {
-  icon: LucideIcon;
-  title: string;
-  line: string;
-  href: string;
-  preview: React.ReactNode;
-};
-
-const miniMap = (
-  <svg viewBox="0 0 200 90" className="w-full">
-    <rect width="200" height="90" rx="10" fill="var(--color-brand-soft)" />
-    <g stroke="var(--color-brand-tint)" strokeWidth="4">
-      <path d="M0 34 H200" />
-      <path d="M70 0 V90" />
-      <path d="M140 0 V90" />
-    </g>
-    <circle cx="44" cy="58" r="6" fill="var(--color-success)" />
-    <circle cx="108" cy="22" r="6" fill="var(--color-warn)" />
-    <circle cx="168" cy="64" r="6" fill="var(--color-brand)" />
-  </svg>
-);
-
-const miniCheckIn = (
-  <div className="space-y-1.5 rounded-xl bg-brand-soft p-3">
-    <div className="rounded-lg bg-white px-2 py-1.5 text-[10px] font-semibold text-navy">
-      ABC Corp · Sector 62
-    </div>
-    <div className="rounded-lg bg-success px-2 py-1.5 text-[10px] font-semibold text-white">
-      Location verified ✓ 11:42 AM
-    </div>
-  </div>
-);
-
-const miniRoute = (
-  <svg viewBox="0 0 200 90" className="w-full">
-    <rect width="200" height="90" rx="10" fill="var(--color-brand-soft)" />
-    <path
-      d="M24 70 L70 46 L118 60 L164 22"
-      fill="none"
-      stroke="var(--color-brand)"
-      strokeWidth="3"
-    />
-    {[
-      [24, 70],
-      [70, 46],
-      [118, 60],
-      [164, 22],
-    ].map(([x, y], i) => (
-      <g key={i}>
-        <circle cx={x} cy={y} r="8" fill="white" stroke="var(--color-brand)" strokeWidth="2" />
-        <text x={x} y={y + 3} fontSize="8" textAnchor="middle" fill="var(--color-navy)">
-          {i + 1}
-        </text>
-      </g>
-    ))}
-  </svg>
-);
-
-const miniZones = (
-  <svg viewBox="0 0 200 90" className="w-full">
-    <rect width="200" height="90" rx="10" fill="var(--color-brand-soft)" />
-    <rect x="8" y="8" width="88" height="34" rx="6" fill="var(--color-brand)" opacity="0.25" />
-    <rect x="104" y="8" width="88" height="34" rx="6" fill="var(--color-success)" opacity="0.25" />
-    <rect x="8" y="48" width="88" height="34" rx="6" fill="var(--color-zone-east)" opacity="0.25" />
-    <rect x="104" y="48" width="88" height="34" rx="6" fill="var(--color-zone-west)" opacity="0.25" />
-    <circle cx="120" cy="30" r="6" fill="var(--color-idle)" />
-  </svg>
-);
-
-const miniChart = (
-  <div className="flex h-[70px] items-end gap-1.5 rounded-xl bg-brand-soft p-3">
-    {[40, 62, 48, 80, 58, 92, 70].map((h, i) => (
-      <span
-        key={i}
-        className="flex-1 rounded-t bg-brand"
-        style={{ height: `${h}%`, opacity: 0.35 + i * 0.09 }}
-      />
-    ))}
-  </div>
-);
-
-const miniPayout = (
-  <div className="space-y-1 rounded-xl bg-brand-soft p-3 text-[10px] font-semibold text-navy">
-    <div className="flex justify-between">
-      <span>Base</span>
-      <span>₹18,000</span>
-    </div>
-    <div className="flex justify-between">
-      <span>Commission</span>
-      <span>₹9,000</span>
-    </div>
-    <div className="flex justify-between text-success">
-      <span>Total</span>
-      <span>₹34,520</span>
-    </div>
-  </div>
-);
-
-const FEATURES: Feature[] = [
-  {
-    icon: MapPin,
-    title: "Live GPS Tracking",
-    line: "See every salesperson on the map in real time.",
-    href: "#feature-01",
-    preview: miniMap,
-  },
-  {
-    icon: ClipboardCheck,
-    title: "Client Check-In & Notes",
-    line: "GPS-verified visits with notes and photos.",
-    href: "#feature-02",
-    preview: miniCheckIn,
-  },
-  {
-    icon: Route,
-    title: "Smart Route Planning",
-    line: "The best route for every day, less fuel.",
-    href: "#feature-03",
-    preview: miniRoute,
-  },
-  {
-    icon: ShieldAlert,
-    title: "Territory Alerts",
-    line: "Know when someone leaves their zone for 30+ min.",
-    href: "#feature-04",
-    preview: miniZones,
-  },
-  {
-    icon: BarChart3,
-    title: "Performance Dashboard",
-    line: "Visits, deals, revenue and targets per rep.",
-    href: "#feature-05",
-    preview: miniChart,
-  },
-  {
-    icon: Wallet,
-    title: "Salary & Incentives",
-    line: "Base, commission, travel allowance — auto-calculated.",
-    href: "#feature-06",
-    preview: miniPayout,
-  },
-];
+import { ArrowRight } from "lucide-react";
+import { SectionHeader, Reveal } from "./primitives";
+import { CityMap, DEFAULT_PINS } from "./CityMap";
+import { motion } from "motion/react";
 
 export function FeaturesGrid() {
   return (
-    <section id="features" className="bg-white py-20 sm:py-24">
+    <section id="features" className="bg-[#F0FDF4] py-24 sm:py-32 map-dots">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeader eyebrow="Features">
-          Everything You Need to Run a{" "}
-          <span className="text-brand">Field Sales Team</span>
+          Everything You Need to Run a Field Sales Team
         </SectionHeader>
 
-        {/* Desktop / tablet grid */}
-        <div className="mt-12 hidden gap-5 sm:grid sm:grid-cols-2 lg:grid-cols-3">
-          {FEATURES.map((f, i) => (
-            <Reveal key={f.title} delay={i * 0.05}>
-              <div className="card-soft h-full p-4">
-                <div className="overflow-hidden rounded-xl">{f.preview}</div>
-                <span className="mt-4 grid h-10 w-10 place-items-center rounded-xl bg-brand-tint">
-                  <f.icon className="h-5 w-5 text-brand" />
-                </span>
-                <p className="mt-3 font-display text-lg font-bold text-navy">{f.title}</p>
-                <p className="mt-1 text-sm text-body">{f.line}</p>
-                <a
-                  href={f.href}
-                  className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-brand"
-                >
-                  See how it works <ArrowRight className="h-4 w-4" />
+        <div className="mt-16 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4 lg:grid-rows-2">
+          
+          {/* Tile 1: Live GPS (2x2) */}
+          <Reveal delay={0.1} className="lg:col-span-2 lg:row-span-2">
+            <div className="flex h-full flex-col rounded-[2rem] border border-border bg-white p-2 shadow-card transition-all hover:-translate-y-1 hover:shadow-card-lg">
+              <div className="relative h-48 w-full overflow-hidden rounded-[1.5rem] bg-brand-soft sm:h-64 lg:h-[320px]">
+                <CityMap pins={DEFAULT_PINS} className="absolute inset-0 h-full w-full object-cover" />
+              </div>
+              <div className="flex flex-1 flex-col p-6 pt-8">
+                <h3 className="text-2xl font-bold text-navy">Live GPS Tracking</h3>
+                <p className="mt-2 flex-1 text-base text-body">See your entire team on one map in real-time. Know who is at a client, traveling, or idle.</p>
+                <a href="#timeline-tracking" className="mt-6 inline-flex items-center gap-2 font-semibold text-secondary hover:text-brand-dark">
+                  See it in action <ArrowRight className="h-4 w-4" />
                 </a>
               </div>
-            </Reveal>
-          ))}
+            </div>
+          </Reveal>
+
+          {/* Tile 2: Client Check-In (1x1) */}
+          <Reveal delay={0.2} className="lg:col-span-1 lg:row-span-1">
+            <div className="flex h-full flex-col rounded-[2rem] border border-border bg-white p-2 shadow-card transition-all hover:-translate-y-1 hover:shadow-card-lg">
+              <div className="flex h-32 w-full items-center justify-center rounded-[1.5rem] bg-muted p-4">
+                <div className="flex items-center gap-2 rounded-full bg-white px-4 py-2 shadow-sm border border-success-soft text-success">
+                  <div className="h-2 w-2 rounded-full bg-success animate-pulse" />
+                  <span className="text-xs font-bold">Location verified ✓</span>
+                </div>
+              </div>
+              <div className="flex flex-1 flex-col p-4 pt-6">
+                <h3 className="text-[17px] font-bold text-navy leading-tight">Client Check-In & Notes</h3>
+                <p className="mt-2 flex-1 text-sm text-body leading-relaxed">Verified by GPS radius and timestamped.</p>
+                <a href="#timeline-checkin" className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-secondary hover:text-brand-dark">
+                  See it in action <ArrowRight className="h-3 w-3" />
+                </a>
+              </div>
+            </div>
+          </Reveal>
+
+          {/* Tile 3: Smart Route (1x1) */}
+          <Reveal delay={0.3} className="lg:col-span-1 lg:row-span-1">
+            <div className="flex h-full flex-col rounded-[2rem] border border-border bg-white p-2 shadow-card transition-all hover:-translate-y-1 hover:shadow-card-lg">
+              <div className="flex h-32 w-full items-center justify-center rounded-[1.5rem] bg-brand-soft p-4 relative overflow-hidden">
+                <svg viewBox="0 0 100 60" className="w-full h-full opacity-60 text-secondary">
+                  <path d="M10 50 Q30 10 50 30 T90 10" fill="none" stroke="currentColor" strokeWidth="2" strokeDasharray="4 4" />
+                  <circle cx="10" cy="50" r="4" fill="var(--color-navy)" />
+                  <circle cx="50" cy="30" r="4" fill="var(--color-navy)" />
+                  <circle cx="90" cy="10" r="4" fill="var(--color-navy)" />
+                </svg>
+              </div>
+              <div className="flex flex-1 flex-col p-4 pt-6">
+                <h3 className="text-[17px] font-bold text-navy leading-tight">Smart Route Planning</h3>
+                <p className="mt-2 flex-1 text-sm text-body leading-relaxed">Optimize travel to save fuel and time.</p>
+                <a href="#timeline-route" className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-secondary hover:text-brand-dark">
+                  See it in action <ArrowRight className="h-3 w-3" />
+                </a>
+              </div>
+            </div>
+          </Reveal>
+
+          {/* Tile 4: Territory Alerts (2x1 wide) */}
+          <Reveal delay={0.4} className="lg:col-span-2 lg:row-span-1">
+            <div className="flex h-full flex-col rounded-[2rem] border border-border bg-white p-2 shadow-card transition-all hover:-translate-y-1 hover:shadow-card-lg sm:flex-row">
+              <div className="flex h-40 w-full items-center justify-center rounded-[1.5rem] bg-navy-soft p-4 sm:w-1/2 sm:h-full relative overflow-hidden">
+                <div className="grid grid-cols-2 grid-rows-2 gap-1 w-full h-full p-2 opacity-80">
+                  <div className="rounded border-2 border-brand/50 bg-brand/20 flex items-center justify-center text-[10px] text-white/50">North</div>
+                  <div className="rounded border-2 border-success/50 bg-success/20 flex items-center justify-center text-[10px] text-white/50">South</div>
+                  <div className="rounded border-2 border-orange-500/50 bg-orange-500/20 flex items-center justify-center text-[10px] text-white/50">East</div>
+                  <div className="rounded border-2 border-destructive bg-destructive/30 animate-pulse-ring flex items-center justify-center text-[10px] text-white">West</div>
+                </div>
+              </div>
+              <div className="flex flex-1 flex-col p-6 sm:w-1/2 sm:justify-center">
+                <h3 className="text-[17px] font-bold text-navy leading-tight">Territory Alerts</h3>
+                <p className="mt-2 flex-1 text-sm text-body leading-relaxed">Get notified instantly if a rep leaves their assigned zone.</p>
+                <a href="#timeline-territory" className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-secondary hover:text-brand-dark">
+                  See it in action <ArrowRight className="h-3 w-3" />
+                </a>
+              </div>
+            </div>
+          </Reveal>
+
+        </div>
+        
+        {/* Mobile: the other two 1x1 cards */}
+        <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2 lg:hidden">
+          {/* Dashboard */}
+          <Reveal delay={0.5}>
+            <div className="flex flex-col rounded-[2rem] border border-border bg-white p-2 shadow-card">
+              <div className="flex h-32 w-full items-end justify-center gap-2 rounded-[1.5rem] bg-muted p-4">
+                 <div className="w-4 bg-brand rounded-t-sm h-1/3" />
+                 <div className="w-4 bg-brand rounded-t-sm h-2/3" />
+                 <div className="w-4 bg-brand rounded-t-sm h-1/2" />
+                 <div className="w-4 bg-success rounded-t-sm h-[90%]" />
+              </div>
+              <div className="flex flex-col p-4 pt-6">
+                <h3 className="text-[17px] font-bold text-navy leading-tight">Performance Dashboard</h3>
+                <p className="mt-2 text-sm text-body leading-relaxed">Real-time stats and leaderboards.</p>
+              </div>
+            </div>
+          </Reveal>
+          
+          {/* Salary */}
+          <Reveal delay={0.6}>
+            <div className="flex flex-col rounded-[2rem] border border-border bg-white p-2 shadow-card">
+              <div className="flex h-32 w-full items-center justify-center rounded-[1.5rem] bg-[#FEF3C7] p-4">
+                 <div className="flex items-center gap-2 rounded-full bg-white px-4 py-2 shadow-sm border border-border">
+                  <span className="text-sm font-bold text-navy">₹34,520</span>
+                  <span className="text-xs font-bold text-success bg-success-soft px-2 py-0.5 rounded">Paid ✓</span>
+                </div>
+              </div>
+              <div className="flex flex-col p-4 pt-6">
+                <h3 className="text-[17px] font-bold text-navy leading-tight">Salary & Incentives</h3>
+                <p className="mt-2 text-sm text-body leading-relaxed">Auto-calculate commissions.</p>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+        
+        {/* Desktop: the other two 1x1 cards (hidden on mobile since they break the nice 4 col layout if we don't position them carefully. Let's make the 2x1 territory tile span 2 cols, so the grid is full. 4 columns: 2 cols x 2 rows = 4 slots for Map. 1+1 slots for checkin/route. 2 slots for territory. We need 2 more slots. Let's adjust the grid layout for desktop.) */}
+        <div className="mt-4 hidden lg:grid lg:grid-cols-4 gap-4">
+           {/* We use an offset row for the last two tiles */}
+           <div className="col-span-2"></div>
+           {/* Dashboard */}
+           <Reveal delay={0.5} className="col-span-1">
+            <div className="flex h-full flex-col rounded-[2rem] border border-border bg-white p-2 shadow-card transition-all hover:-translate-y-1 hover:shadow-card-lg">
+              <div className="flex h-32 w-full items-end justify-center gap-3 rounded-[1.5rem] bg-muted p-4">
+                 <div className="w-6 bg-brand/40 rounded-t h-1/3" />
+                 <div className="w-6 bg-brand/60 rounded-t h-2/3" />
+                 <div className="w-6 bg-brand/80 rounded-t h-1/2" />
+                 <div className="w-6 bg-success rounded-t h-[90%]" />
+              </div>
+              <div className="flex flex-1 flex-col p-4 pt-6">
+                <h3 className="text-[17px] font-bold text-navy leading-tight">Performance Dashboard</h3>
+                <p className="mt-2 flex-1 text-sm text-body leading-relaxed">Real-time stats and leaderboards.</p>
+                <a href="#timeline-dashboard" className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-secondary hover:text-brand-dark">
+                  See it in action <ArrowRight className="h-3 w-3" />
+                </a>
+              </div>
+            </div>
+          </Reveal>
+          
+          {/* Salary */}
+          <Reveal delay={0.6} className="col-span-1">
+            <div className="flex h-full flex-col rounded-[2rem] border border-border bg-white p-2 shadow-card transition-all hover:-translate-y-1 hover:shadow-card-lg">
+              <div className="flex h-32 w-full items-center justify-center rounded-[1.5rem] bg-warn/20 p-4">
+                 <div className="flex flex-col items-center gap-1 rounded-xl bg-white px-4 py-3 shadow-sm border border-border">
+                  <span className="text-lg font-bold text-navy">₹34,520</span>
+                  <span className="text-[10px] font-bold text-success bg-success-soft px-2 py-0.5 rounded uppercase tracking-wider">Paid ✓</span>
+                </div>
+              </div>
+              <div className="flex flex-1 flex-col p-4 pt-6">
+                <h3 className="text-[17px] font-bold text-navy leading-tight">Salary & Incentives</h3>
+                <p className="mt-2 flex-1 text-sm text-body leading-relaxed">Auto-calculate commissions.</p>
+                <a href="#timeline-salary" className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-secondary hover:text-brand-dark">
+                  See it in action <ArrowRight className="h-3 w-3" />
+                </a>
+              </div>
+            </div>
+          </Reveal>
         </div>
 
-        {/* Mobile thumbnail list */}
-        <div className="mt-10 grid gap-3 sm:hidden">
-          {FEATURES.map((f) => (
-            <a
-              key={f.title}
-              href={f.href}
-              className="card-soft grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 p-3"
-            >
-              <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-brand-tint">
-                <f.icon className="h-5 w-5 text-brand" />
-              </span>
-              <span className="min-w-0">
-                <span className="block truncate font-display text-[15px] font-bold text-navy">
-                  {f.title}
-                </span>
-                <span className="block text-xs text-body">{f.line}</span>
-              </span>
-              <ChevronRight className="h-5 w-5 shrink-0 text-brand" />
-            </a>
-          ))}
-        </div>
       </div>
     </section>
   );

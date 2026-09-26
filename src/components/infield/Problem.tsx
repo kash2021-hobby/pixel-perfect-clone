@@ -1,89 +1,131 @@
-import { AlertTriangle, FileWarning, Fuel, MapPinOff, Receipt } from "lucide-react";
-import { Reveal, SectionHeader } from "./primitives";
+import { HelpCircle, FileX, RouteOff, Coins } from "lucide-react";
+import { SectionHeader, Reveal } from "./primitives";
 
-const PAINS = [
+const painPoints = [
   {
-    icon: MapPinOff,
+    icon: HelpCircle,
     title: "Kaun kahan hai?",
-    line: "No idea where anyone is during the day.",
+    desc: "No idea where anyone is during the day.",
   },
   {
-    icon: FileWarning,
+    icon: FileX,
     title: "Reports you can't verify",
-    line: "“Met 10 clients” — but did they?",
+    desc: "\"Met 10 clients\" — but did they?",
   },
   {
-    icon: Fuel,
+    icon: RouteOff,
     title: "Long routes, high petrol bills",
-    line: "Random routes waste hours and fuel.",
+    desc: "Random routes waste hours and fuel.",
   },
   {
-    icon: AlertTriangle,
-    title: "Territory overlap",
-    line: "Reps wander into other zones, clients get missed.",
-  },
-  {
-    icon: Receipt,
+    icon: Coins,
     title: "Incentive disputes",
-    line: "Manual commission sheets every month.",
+    desc: "Manual commission sheets every month.",
   },
 ];
 
 export function Problem() {
   return (
-    <section id="problem" className="bg-white py-20 pt-28 sm:py-24 sm:pt-32">
+    <section id="problem" className="bg-muted py-24 sm:py-32 map-dots">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <SectionHeader eyebrow="The daily blind spot">
-          Your Sales Team Is Out All Day.
-          <br />
-          <span className="text-brand">You See Nothing.</span>
+        <SectionHeader
+          eyebrow="The Field Sales Nightmare"
+        >
+          Have You Ever Felt Completely in the Dark <br />
+          <span className="text-secondary">About Your Sales Team?</span>
         </SectionHeader>
 
-        <div className="mt-12 grid gap-8 lg:grid-cols-2 lg:items-center">
-          <Reveal>
-            <div className="relative mx-auto max-w-sm">
-              <div className="rounded-3xl border border-brand-tint bg-brand-soft p-5 shadow-card">
-                <p className="text-xs font-semibold text-body">Daily report · 8:42 PM</p>
-                <div className="mt-3 rounded-2xl rounded-bl-sm bg-white p-4 shadow-card">
-                  <p className="font-display text-base font-bold text-navy">
-                    Met 8 clients today ✓
-                  </p>
-                  <p className="mt-1 text-sm text-body">5 deals will close</p>
+        <div className="mt-16 grid gap-12 lg:grid-cols-2 lg:items-center">
+          {/* Left: Chat Mockup */}
+          <Reveal className="flex justify-center">
+            <div className="relative w-full max-w-[340px] rounded-[2.5rem] border-[8px] border-white bg-gray-50 shadow-card-lg overflow-hidden h-[600px] flex flex-col">
+              {/* Phone Header */}
+              <div className="bg-[#075E54] text-white px-4 py-3 flex items-center gap-3">
+                <div className="h-8 w-8 rounded-full bg-white/20 flex items-center justify-center font-bold">R</div>
+                <div>
+                  <div className="font-semibold text-sm">Rohit (Sales)</div>
+                  <div className="text-[11px] opacity-80">online</div>
                 </div>
-                <div className="mt-4 flex items-center justify-between">
-                  <span className="-rotate-6 rounded-lg border-2 border-destructive px-3 py-1 font-display text-sm font-extrabold uppercase tracking-wide text-destructive">
-                    Unverified?
-                  </span>
-                  <span className="grid h-10 w-10 place-items-center rounded-full bg-destructive/10 font-display text-xl font-extrabold text-destructive">
-                    <span className="animate-pulse">?</span>
-                  </span>
+              </div>
+
+              {/* Chat Area */}
+              <div className="flex-1 bg-[#E5DDD5] p-4 flex flex-col gap-4 relative overflow-hidden">
+                {/* Chat bg pattern */}
+                <div className="absolute inset-0 opacity-10 mix-blend-overlay" style={{ backgroundImage: "url('https://cdn.gpteng.co/whatsapp-bg.png')" }} />
+                
+                {/* Date bubble */}
+                <div className="flex justify-center relative z-10">
+                  <div className="bg-[#D1E1EF] text-[#4A5E6B] text-[11px] px-3 py-1 rounded-lg shadow-sm">TODAY</div>
+                </div>
+
+                {/* Salesperson bubble */}
+                <div className="self-start relative z-10 max-w-[85%] mt-4">
+                  <div className="bg-white rounded-lg rounded-tl-none p-3 shadow-sm relative">
+                    <p className="text-[15px] text-[#303030] leading-snug">
+                      Sir, met 8 clients today ✓<br />5 deals will close 👍
+                    </p>
+                    <span className="text-[10px] text-gray-400 float-right mt-1 ml-2">7:30 PM</span>
+                    
+                    {/* Unverified Badge (Appears via animation) */}
+                    <div className="absolute -right-3 -top-3 rotate-12 animate-pulse-ring animation-delay-1000">
+                      <div className="bg-idle text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-sm border border-white">
+                        UNVERIFIED
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Manager bubble */}
+                <div className="self-end relative z-10 max-w-[85%] mt-2">
+                  <div className="bg-[#DCF8C6] rounded-lg rounded-tr-none p-3 shadow-sm">
+                    <p className="text-[15px] text-[#303030] leading-snug">
+                      Which clients? What time?
+                    </p>
+                    <span className="text-[10px] text-gray-500 float-right mt-1 ml-2">7:35 PM <span className="text-[#4FC3F7]">✓✓</span></span>
+                  </div>
+                </div>
+
+                {/* Typing indicator */}
+                <div className="self-start relative z-10 max-w-[85%] mt-2">
+                  <div className="bg-white rounded-lg rounded-tl-none p-3 shadow-sm text-gray-500 text-sm flex items-center gap-1">
+                    Rohit is typing
+                    <span className="flex space-x-1 ml-1 mt-1">
+                      <span className="w-1 h-1 bg-gray-400 rounded-full animate-bounce [animation-delay:-0.3s]"></span>
+                      <span className="w-1 h-1 bg-gray-400 rounded-full animate-bounce [animation-delay:-0.15s]"></span>
+                      <span className="w-1 h-1 bg-gray-400 rounded-full animate-bounce"></span>
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
           </Reveal>
 
-          <div className="grid gap-3">
-            {PAINS.map((p, i) => (
-              <Reveal key={p.title} delay={i * 0.05}>
-                <div className="card-soft flex min-w-0 items-start gap-3 p-4">
-                  <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-brand-tint">
-                    <p.icon className="h-5 w-5 text-brand" />
-                  </span>
-                  <div className="min-w-0">
-                    <p className="font-display text-[18px] font-bold text-navy">{p.title}</p>
-                    <p className="text-sm text-body">{p.line}</p>
-                  </div>
-                </div>
-              </Reveal>
-            ))}
+          {/* Right: Pain Points */}
+          <div className="flex flex-col justify-center">
+            <div className="grid gap-8">
+              {painPoints.map((pain, i) => {
+                const Icon = pain.icon;
+                return (
+                  <Reveal key={pain.title} delay={i * 0.1} className="flex gap-4">
+                    <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl bg-white text-destructive shadow-sm">
+                      <Icon className="h-6 w-6" />
+                    </div>
+                    <div>
+                      <h3 className="text-[18px] font-bold text-navy">{pain.title}</h3>
+                      <p className="mt-1 text-base text-body">{pain.desc}</p>
+                    </div>
+                  </Reveal>
+                );
+              })}
+            </div>
+            
+            <Reveal delay={0.4} className="mt-12 text-center lg:text-left">
+              <p className="text-xl font-bold text-navy border-t border-border pt-8">
+                You can't grow what you can't see.
+              </p>
+            </Reveal>
           </div>
         </div>
-
-        <Reveal>
-          <p className="mt-12 text-center font-display text-xl font-bold text-navy sm:text-2xl">
-            You can't grow what you can't see.
-          </p>
-        </Reveal>
       </div>
     </section>
   );

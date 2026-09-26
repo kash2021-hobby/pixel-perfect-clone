@@ -5,6 +5,7 @@ type Pin = {
   color: string;
   path: string;
   offset: [number, number];
+  avatar: string;
 };
 
 const STATUS_FILL: Record<string, string> = {
@@ -35,6 +36,14 @@ export function CityMap({
       role="img"
       aria-label="Live map of the field sales team"
     >
+      <defs>
+        {shown.map((pin) => (
+          <clipPath key={`clip-${pin.name}`} id={`clip-${pin.name}`}>
+            <circle cx="0" cy="0" r="10" />
+          </clipPath>
+        ))}
+      </defs>
+      
       <rect width="400" height="260" rx="14" fill="var(--color-brand-soft)" />
       {/* blocks */}
       {[
@@ -99,10 +108,22 @@ export function CityMap({
           style={{ offsetPath: `path("${pin.path}")`, offsetRotate: "0deg" }}
         >
           <g transform={`translate(${pin.offset[0]} ${pin.offset[1]})`}>
-            <circle r="13" fill={STATUS_FILL[pin.color]} opacity="0.18" />
-            <circle r="7" fill={STATUS_FILL[pin.color]} />
-            <circle r="2.6" fill="white" />
-            <g transform="translate(12 -9)">
+            {/* Status Halo */}
+            <circle r="15" fill={STATUS_FILL[pin.color]} opacity="0.25" />
+            {/* Status Border */}
+            <circle r="11" fill={STATUS_FILL[pin.color]} />
+            {/* Avatar */}
+            <image 
+              href={pin.avatar} 
+              x="-10" 
+              y="-10" 
+              height="20" 
+              width="20" 
+              clipPath={`url(#clip-${pin.name})`} 
+              preserveAspectRatio="xMidYMid slice" 
+            />
+            {/* Name Tag */}
+            <g transform="translate(16 -9)">
               <rect
                 width={pin.name.length * 6.4 + 14}
                 height="18"
@@ -133,29 +154,34 @@ export const DEFAULT_PINS: Pin[] = [
     color: "green",
     path: "M60 210 C120 190 150 120 210 100 S330 70 360 50",
     offset: [0, 0],
+    avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&h=100&fit=crop&crop=faces",
   },
   {
     name: "Priya",
     color: "amber",
     path: "M40 60 C110 70 140 150 230 160 S330 200 372 220",
     offset: [0, 0],
+    avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop&crop=faces",
   },
   {
     name: "Amit",
     color: "green",
     path: "M300 40 C280 90 250 120 200 150 S110 200 60 240",
     offset: [0, 0],
+    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=faces",
   },
   {
     name: "Neha",
     color: "amber",
     path: "M20 140 C90 130 160 150 220 120 S320 90 380 110",
     offset: [0, 0],
+    avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&h=100&fit=crop&crop=faces",
   },
   {
     name: "Karan",
     color: "grey",
     path: "M150 240 C180 190 200 170 260 150 S340 140 380 160",
     offset: [0, 0],
+    avatar: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=100&h=100&fit=crop&crop=faces",
   },
 ];
